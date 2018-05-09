@@ -14,7 +14,6 @@ export WATCH='all'
 alias ls='ls --color'
 alias ll='ls -l'
 alias la='ls -la'
-alias j='jobs'
 alias emacs='emacs -nw'
 alias ne='emacs'
 alias source='source ~/.bashrc'
@@ -27,20 +26,10 @@ alias ..='cd ..'
 alias wifi='nm-applet'
 alias sound='pavucontrol'
 alias config='neofetch'
-alias sql='sudo kitematic'
 alias leave='shutdown now'
 alias 144='xrandr --output DP-1 --mode 1920x1080 --rate 144.00'
 alias temp='sensors'
-
-ifsegfault()
-{
-    if [ `echo $?` -eq 139 ]
-    then
-	ffplay -nodisp -loglevel panic /bin/oui.wav &
-    fi
-}
-
-PROMPT_COMMAND="ifsegfault"
+alias i3='ne ~/.config/i3/config'
 
 if [ -f ${HOME}/.mybashrc ]
 then
@@ -48,6 +37,7 @@ then
 fi
 
 LS_COLORS=$LS_COLORS:'ex=36:di=34:' ; export LS_COLORS
+
 append_path_env_var()
 {
 	ENV_VAR=`printenv $1`
@@ -58,30 +48,6 @@ append_path_env_var()
 	fi
 	export ${1}=$CONTENT
 }
-append_path_env_var()
-{
-	ENV_VAR=`printenv $1`
-	CONTENT=$2
-	if [[ ! -z $ENV_VAR ]]
-	then
-			CONTENT=$ENV_VAR:${2}
-	fi
-	export ${1}=$CONTENT
-}
-append_path_env_var()
-{
-	ENV_VAR=`printenv $1`
-	CONTENT=$2
-	if [[ ! -z $ENV_VAR ]]
-	then
-			CONTENT=$ENV_VAR:${2}
-	fi
-	export ${1}=$CONTENT
-}
-### C Graphical Programming Environement Variable
-append_path_env_var "LIBRARY_PATH" "/home/clem/.graph_programming/lib"
-append_path_env_var "LD_LIBRARY_PATH" "/home/clem/.graph_programming/lib"
-append_path_env_var "CPATH" "/home/clem/.graph_programming/include"
 
 gb() {
         echo -n ' (' && git branch 2>/dev/null | grep '^*' | colrm 1 2 | tr -d '\n' && echo  -n ') '
@@ -101,6 +67,10 @@ __prompt_command() {
     local Noc='\[\e[0m\]'
 
     PS1="\[\e[00;37m\]\u\[\e[01;37m\]:\[\e[01;34m\]\w\$(git_branch)"
+
+    if [ $EXIT == 139 ]; then
+	ffplay -nodisp -loglevel panic /bin/oui.wav &
+    fi
 
     if [ $EXIT != 0 ]; then
         PS1+="[${Brown}$EXIT${BYel}]\\$ "
