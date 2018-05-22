@@ -1,6 +1,6 @@
 # Config Repository
 
-Repository to store useful config files
+## Repository to store useful config files
 
 There is a screenshot about my laptop and the Os i use to work
 
