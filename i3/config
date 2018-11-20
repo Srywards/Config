@@ -18,6 +18,9 @@ floating_modifier $mod
 # Start a terminal
 bindsym $mod+Return exec /home/clem/bin/.smart_split.py && exec termite -d "`xcwd`"
 
+# Shutdown computer
+bindsym $mod+Shift+k exec shutdown now
+
 # Kill focused window
 bindsym $mod+Shift+q kill
 
@@ -44,13 +47,13 @@ bindsym $mod+Control+Up exec --no-startup-id playerctl play-pause
 bindsym Print exec --no-startup-id scrot
 
 # Lock
-bindsym $mod+l exec --no-startup-id /home/clem/bin/lock
+bindsym $mod+l exec --no-startup-id /home/clem/bin/lock_i3
 
 # Screenshot
 bindsym $mod+Insert exec --no-startup-id flameshot gui
 
 # Open file explorer
-bindsym $mod+e exec --no-startup-id pcmanfm
+bindsym $mod+e exec --no-startup-id pcmanfm "`xcwd`"
 
 # change focus
 bindsym $mod+Left focus left
@@ -177,10 +180,12 @@ for_window [class="Tek The Sea"] floating enable
 # Default Workspaces
 for_window [class="Chromium"] move window to workspace 2
 for_window [title="Rambox"] move window to workspace 3
-for_window [title="Blih Vue"] move window to workspace 4
-for_window [title="Rush 3"] move window to workspace 4
+for_window [class="code"] move window to workspace 4
+for_window [title="Blih Vue"] move window to workspace 6
+for_window [class="Auryo"] move window to workspace 5
 for_window [class="boost"] move window to workspace 5
-for_window [title="hunter"] move window to workspace 4
+for_window [class="babel"] move window to workspace 5
+for_window [class="jetbrains-studio"] move window to workspace 5
 
 # Startup
 exec --no-startup-id setxkbmap -layout us
@@ -190,7 +195,10 @@ exec --no-startup-id redshift
 exec --no-startup-id rambox
 exec --no-startup-id termite
 exec --no-startup-id chromium
+exec --no-startup-id flameshot
 exec --no-startup-id blueberry-tray
+exec --no-startup-id code-oss
+#exec --no-startup-id auryo
 exec --no-startup-id xss-lock -- /home/clem/bin/lock
 exec_always --no-startup-id /home/clem/bin/.bar.sh
 exec_always --no-startup-id feh --randomize --bg-scale ~/.config/i3/wallpaper/*
